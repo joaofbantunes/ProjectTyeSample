@@ -1,0 +1,40 @@
+# tye application configuration file
+# read all about it at https://github.com/dotnet/tye
+#
+# when you've given us a try, we'd love to know what you think:
+#    https://aka.ms/AA7q20u
+#
+name: projecttyesample
+services:
+- name: frontend
+  project: src/Frontend/Frontend.csproj
+  # we can create a binding with the protocol if we want the app to only be available in HTTPS for example
+  bindings:
+    - protocol: https
+  # if we don't put any binding (as below for Api), it'll have the two default ones ion ASP.NET Core applications, HTTP and HTTPS
+- name: api
+  project: src/Api/Api.csproj
+  # the Worker won't have any bindings, as it's not listening to HTTP(S) requests
+- name: worker
+  project: src/Worker/Worker.csproj
+- name: postgres
+  image:  postgres
+  env:
+  - name: POSTGRES_USER
+    value: "user"
+  - name: POSTGRES_PASSWORD
+    value: "pass"
+  bindings:
+  - port: 5432
+    connectionString: Server=${host};Port=${port};User Id=${env:POSTGRES_USER};Password=${env:POSTGRES_PASSWORD};
+- name: rabbit
+  image:  rabbitmq:management
+  bindings:
+  - name: queue
+    protocol: amqp
+    port: 5672
+    connectionString: ${host}:${port}
+  - name: management
+    port: 15672
+    containerPort: 15672
+    protocol: http

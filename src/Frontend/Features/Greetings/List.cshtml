@@ -1,0 +1,16 @@
+﻿@page
+@model Frontend.Features.Greetings.ListModel
+@{
+    Layout = null;
+}
+
+<h1>Hi!</h1>
+<a asp-page="/Greetings/Create">Create a greeting</a>
+<ul>
+    @foreach (var greeting in Model.Greetings)
+    {
+    <li>
+        @greeting.Name - @greeting.SubmittedAt
+    </li>
+    }
+</ul>

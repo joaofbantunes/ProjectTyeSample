@@ -1,0 +1,12 @@
+﻿@page
+@model Frontend.Features.Greetings.CreateModel
+@{
+    Layout = null;
+}
+
+<h1>Hello</h1>
+<form method="post">
+    <label asp-for="Name" />
+    <input asp-for="Name" />
+    <button type="submit">Greet</button>
+</form>

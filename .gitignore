@@ -322,3 +322,5 @@ ASALocalRun/
 
 #MacOS stuff
 .DS_Store
+
+.tye/
